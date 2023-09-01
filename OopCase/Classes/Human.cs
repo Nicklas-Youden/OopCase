@@ -13,6 +13,6 @@ namespace OopCase.Classes {
 			
 		}
 
-		public abstract List<string> GetInfo(List<Assign> assigns)
+		public abstract List<string> GetInfo(List<Assign> assigns);
 	}
 }
