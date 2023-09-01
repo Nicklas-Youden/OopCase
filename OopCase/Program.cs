@@ -15,49 +15,53 @@ List<Assign> assings = new List<Assign>();
 while(true)
 {
 
-Console.Write("Patient Fornavn: ");
-string? pFirstName = Console.ReadLine();
-Console.Write("Patient efternavn: ");
-string? pLastName = Console.ReadLine();
-Console.Write("Patient til.nr: ");
-string? pTel = Console.ReadLine();
-while (true)
-{
-
-for (int i = 0; i < doctor.Count; i++){
-	Doctor item = doctor[i];
-	Console.WriteLine($"Læge ID: {i+1}, læge:{item.FirstName} {item.LastName}");
-}
-
-	Console.WriteLine("Tildel Læge med id: ");
-string? doctorID = Console.ReadLine();
-Doctor doctorChoice = null;
-switch(doctorID){
-	case "1":
-		doctorChoice = doctor[0]; break;
-	case "2":
-		doctorChoice = doctor[1]; break;
-	case "3":
-		doctorChoice = doctor[2]; break;
-	case "4":
-		doctorChoice = doctor[3]; break;
-}
-
-Patient patient = new Patient(pFirstName, pLastName, pTel, doctorChoice);
-
-Assign a = new Assign( patient, doctorChoice );
-
-assings.Add( a );
-	Console.WriteLine($"Læge {doctorChoice.FirstName} {doctorChoice.LastName} er blevet tilføjet");
-
-	Console.WriteLine("Har du løst til at tilmelleflære læger?");
-	Console.Write("Skriv 'Ja' For at tilføje en til læge");
-	string Choice = Console.ReadLine().ToLower().Trim();
-
-	if ( Choice != "ja")
+	Console.Write("Patient Fornavn: ");
+	string? pFirstName = Console.ReadLine();
+	Console.Write("Patient efternavn: ");
+	string? pLastName = Console.ReadLine();
+	Console.Write("Patient til.nr: ");
+	string? pTel = Console.ReadLine();
+	while(true)
 	{
-		Console.Clear();
-		break;
+
+		for(int i = 0; i < doctor.Count; i++)
+		{
+			Doctor item = doctor[i];
+			Console.WriteLine($"Læge ID: {i + 1}, læge:{item.FirstName} {item.LastName}");
+		}
+
+		Console.WriteLine("Tildel Læge med id: ");
+			Doctor doctorChoice = null;
+		do{
+			string? doctorID = Console.ReadLine();
+			switch(doctorID){
+				case "1":
+					doctorChoice = doctor[0]; break;
+				case "2":
+					doctorChoice = doctor[1]; break;
+				case "3":
+					doctorChoice = doctor[2]; break;
+				case "4":
+					doctorChoice = doctor[3]; break;
+				default: Console.WriteLine("You need to pick a doctor"); break;
+			}
+		} while(doctorChoice == null);
+
+		Patient patient = new Patient(pFirstName, pLastName, pTel, doctorChoice);
+
+		Assign a = new Assign(patient, doctorChoice);
+
+		assings.Add(a);
+		Console.WriteLine($"Læge {doctorChoice.FirstName} {doctorChoice.LastName} er blevet tilføjet");
+
+		Console.WriteLine("Har du løst til at tilmelleflære læger?");
+		Console.Write("Skriv 'Ja' For at tilføje en til læge");
+		string Choice = Console.ReadLine().ToLower().Trim();
+
+		if(Choice != "ja")
+		{
+			Console.Clear();
+			break;
+		}
 	}
-}
 }
