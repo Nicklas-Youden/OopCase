@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace OopCase.Classes {
 	internal class Doctor : Human {
 
-		
-		public Doctor(string? firstName, string? lastName, string? Spicale , string? telNumber) : base (firstName, lastName, telNumber){
+
+        public string? Special { get; set; }
+        public Doctor(string? firstName, string? lastName, string? speciale , string? telNumber) : base (firstName, lastName, telNumber){
 			FirstName = firstName;
 			LastName = lastName;
+			Special = speciale;
 		}
 
 		public override List<string> GetInfo(List<Assign> assigns) {

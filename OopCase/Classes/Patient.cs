@@ -14,7 +14,9 @@ namespace OopCase.Classes {
 		
 		}
 
-		public override List<string> GetInfo(List<Assign> assigns)
+		public List<Doctor> DoctorsList { get; set; } = new();
+
+        public override List<string> GetInfo(List<Assign> assigns)
 		{
 
 			return GetInfo(assigns);

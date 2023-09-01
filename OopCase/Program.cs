@@ -2,14 +2,16 @@
 
 
 using OopCase.Classes;
-
+// List of doctors
 Doctor Peter = new("Peter", "Hansen", "Øjenlæge", "11111111");
 Doctor Martin = new("Martin", "Jensen", "Radiologi", "22222222");
 Doctor Thomas = new("Thomas", "Olsen", "Kirurgi", "33333333");
 Doctor Ole = new("Ole", "Nilsen", "Oncologi", "44444444");
 
 List<Doctor> doctor = new() { Peter, Martin, Thomas, Ole };
+
 List<Assign> assings = new List<Assign>();
+List<Patient> patients = new();
 
 Patient patient = new Patient();
 
@@ -25,13 +27,17 @@ while(true)
 	while(true)
 	{
 		ShowDoctors(doctor);
+		Doctor? doctorChoice = null;
+		//Check that doctor isnt already on patient, and onkologi and kirug is not, and doctor not have more than 3 patients
+		do
+		{
+			doctorChoice = AssignDoctor(doctor);
+		}
+		while(!CheckDoctor(doctorChoice));
 
-		Doctor? doctorChoice = AssignDoctor(doctor);
 
+		//Assign a = new Assign(patient, doctorChoice);
 
-		Assign a = new Assign(patient, doctorChoice);
-
-		assings.Add(a);
 		Console.WriteLine($"Læge {doctorChoice.FirstName} {doctorChoice.LastName} er blevet tilføjet");
 
 		Console.WriteLine("Har du løst til at tilmelleflære læger?");
@@ -43,7 +49,34 @@ while(true)
 			Console.Clear();
 			break;
 		}
+	
 	}
+
+	patients.Add(patient);
+}
+
+bool CheckDoctor(Doctor doc)
+{
+	//if docter > 3 patients then check doctor = false
+	//List docter inside paitent if doctorthere = true then CheckDoctor= false
+	foreach(var doctorloop in patient.DoctorsList)
+	{
+		if(doc == doctorloop) return false;
+		if(doc.Special == "Onkologi" && doctorloop.Special == "Kirug") return false;
+		if(doc.Special == "Kirug" && doctorloop.Special == "Onkologi") return false;
+	}
+
+	int counter = 0;
+	foreach(var patientLoop in patients)
+	{
+		foreach(var docloop in patientLoop.DoctorsList)
+		{
+			if(docloop == doc) counter++;
+			if(counter > 3) return false;
+		}
+	}
+	//List docter inside paitent doctor.Spicale idk 
+	return true;
 }
 
 static void ShowDoctors(List<Doctor> doctor)
@@ -54,6 +87,8 @@ static void ShowDoctors(List<Doctor> doctor)
 		Console.WriteLine($"Læge ID: {i + 1}, læge:{item.FirstName} {item.LastName}");
 	}
 }
+
+
 
 static Doctor AssignDoctor(List<Doctor> doctor)
 {
