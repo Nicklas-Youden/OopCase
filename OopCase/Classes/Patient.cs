@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OopCase.Classes {
 	internal class Patient : Human {
+		public Patient()
+		{
+		}
 
 		public Patient(string? firstName, string? lastName, string? telNumber, Doctor doctor) : base (firstName, lastName, telNumber){
 		

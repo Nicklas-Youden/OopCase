@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace OopCase.Classes {
 	internal class Doctor : Human {
 
-		public string? FirstName { get; set; }
-		public string? LastName { get; set; }
+		
 		public Doctor(string? firstName, string? lastName, string? Spicale , string? telNumber) : base (firstName, lastName, telNumber){
 			FirstName = firstName;
 			LastName = lastName;

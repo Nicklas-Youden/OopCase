@@ -11,43 +11,23 @@ Doctor Ole = new("Ole", "Nilsen", "Oncologi", "44444444");
 List<Doctor> doctor = new() { Peter, Martin, Thomas, Ole };
 List<Assign> assings = new List<Assign>();
 
+Patient patient = new Patient();
 
 while(true)
 {
 
 	Console.Write("Patient Fornavn: ");
-	string? pFirstName = Console.ReadLine();
+	patient.FirstName = Console.ReadLine();
 	Console.Write("Patient efternavn: ");
-	string? pLastName = Console.ReadLine();
+	patient.LastName = Console.ReadLine();
 	Console.Write("Patient til.nr: ");
-	string? pTel = Console.ReadLine();
+	patient.Tel = Console.ReadLine();
 	while(true)
 	{
+		ShowDoctors(doctor);
 
-		for(int i = 0; i < doctor.Count; i++)
-		{
-			Doctor item = doctor[i];
-			Console.WriteLine($"Læge ID: {i + 1}, læge:{item.FirstName} {item.LastName}");
-		}
+		Doctor? doctorChoice = AssignDoctor(doctor);
 
-		Console.WriteLine("Tildel Læge med id: ");
-			Doctor doctorChoice = null;
-		do{
-			string? doctorID = Console.ReadLine();
-			switch(doctorID){
-				case "1":
-					doctorChoice = doctor[0]; break;
-				case "2":
-					doctorChoice = doctor[1]; break;
-				case "3":
-					doctorChoice = doctor[2]; break;
-				case "4":
-					doctorChoice = doctor[3]; break;
-				default: Console.WriteLine("You need to pick a doctor"); break;
-			}
-		} while(doctorChoice == null);
-
-		Patient patient = new Patient(pFirstName, pLastName, pTel, doctorChoice);
 
 		Assign a = new Assign(patient, doctorChoice);
 
@@ -64,4 +44,36 @@ while(true)
 			break;
 		}
 	}
+}
+
+static void ShowDoctors(List<Doctor> doctor)
+{
+	for(int i = 0; i < doctor.Count; i++)
+	{
+		Doctor item = doctor[i];
+		Console.WriteLine($"Læge ID: {i + 1}, læge:{item.FirstName} {item.LastName}");
+	}
+}
+
+static Doctor AssignDoctor(List<Doctor> doctor)
+{
+	Console.WriteLine("Tildel Læge med id: ");
+	Doctor? doctorChoice = null;
+	do
+	{
+		string? doctorID = Console.ReadLine();
+		switch(doctorID)
+		{
+			case "1":
+				doctorChoice = doctor[0]; break;
+			case "2":
+				doctorChoice = doctor[1]; break;
+			case "3":
+				doctorChoice = doctor[2]; break;
+			case "4":
+				doctorChoice = doctor[3]; break;
+			default: Console.WriteLine("You need to pick a doctor"); break;
+		}
+	} while(doctorChoice == null);
+	return doctorChoice;
 }
